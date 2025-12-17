@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import AddFilm from "./addfilm";
+import TicketBook from "./ticketbook";
 
-function App() {
+
+
+function Home() {
+  const navigate = useNavigate();
+
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -46,6 +53,14 @@ function App() {
           <p className="text-sm opacity-90 mt-1">
             Now Showing – Book Your Seats
           </p>
+
+          {/* ADD FILM BUTTON */}
+          <button
+            onClick={() => navigate("/addfilm")}
+            className="mt-4 bg-black/30 hover:bg-black/50 px-5 py-2 rounded-xl font-semibold"
+          >
+            + Add Film
+          </button>
         </div>
       </header>
 
@@ -94,7 +109,9 @@ function App() {
                     <p>Box Seat: <span className="font-semibold">Rs. {film.BoxPrice}</span></p>
                   </div>
 
-                  <button className="w-full mt-4 bg-red-600 hover:bg-red-700 py-2 rounded-xl font-semibold transition">
+                  <button 
+                  onClick={() => navigate("/ticketbook")}
+                  className="w-full mt-4 bg-red-600 hover:bg-red-700 py-2 rounded-xl font-semibold transition">
                     Book Now
                   </button>
                 </div>
@@ -112,4 +129,13 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/addfilm" element={<AddFilm />} />
+      <Route path="/ticketbook" element={<TicketBook />} />
+
+    </Routes>
+  );
+}
